@@ -35,7 +35,7 @@ public class UserController {
         return userService.login(username, pwd, token);
 
     }
-    @GetMapping(value = "getusers")
+    @GetMapping(value = "AllUsers")
     public List<User> list() {
         return userService.list();
     }
