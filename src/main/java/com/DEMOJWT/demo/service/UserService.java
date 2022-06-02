@@ -17,9 +17,6 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public List<User> findAll(){
-        return userRepository.findAll();
-    }
     public User findByUSer(String user, String pdw){
         return  userRepository.findByUser(user, pdw);
     }

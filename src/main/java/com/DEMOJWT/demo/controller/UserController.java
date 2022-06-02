@@ -26,7 +26,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("userCreate")
+    @PostMapping("create")
     public User userCreate(@RequestParam("user") String username, @RequestParam("password") String pwd) {
         User user = new User();
         user.setId();
