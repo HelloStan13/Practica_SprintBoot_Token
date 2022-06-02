@@ -24,12 +24,10 @@ public class UserService {
 
     }
 
-
     public List<User> list() {
 
         Iterable<User> usuarios = new ArrayList<>();
         usuarios = userRepository.findAll();
-
 
         List<User> response = new ArrayList<>();
 
@@ -39,29 +37,20 @@ public class UserService {
         return response;
     }
 
-
     public List<User> login(String username, String pwd, String token) {
 
-        //Lista para obtener resultados desde la BD
         Iterable<User> usuarios = new ArrayList<>();
         usuarios = userRepository.findAll();
         List<User> listUser = new ArrayList<>();
 
 
-        //Recorremos lista de entidad
         for (User user : usuarios) {
             if ((user.getUser().equals(username)) && (user.getPwd().equals(pwd))) {
 
                 user.setToken(token);
                 listUser.add(user);
-
             }
-
         }
         return listUser;
-
     }
-
-
-
 }
