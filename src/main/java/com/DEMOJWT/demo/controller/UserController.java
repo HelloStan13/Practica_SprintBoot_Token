@@ -5,14 +5,19 @@ import com.DEMOJWT.demo.service.UserService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -23,12 +28,26 @@ public class UserController {
 
     @PostMapping("user")
     public User login(@RequestParam("user") String username, @RequestParam("password") String pwd) {
-        String token = getJWTToken(username);
         User user = new User();
         user.setUser(username);
         user.setPwd(pwd);
-        user.setToken(token);
         return this.userService.saveUser(user);
+    }
+
+    @GetMapping("user")
+    public ResponseEntity<?> obtener(@RequestParam("user") String username, @RequestParam("password") String pwd){
+        String token = getJWTToken(username);
+
+        Map<String, Object> response = new HashMap<>();
+        try{
+            User userValidation = userService.findByUSer(username, pwd);
+            userValidation.setToken(token);
+            response.put("User: ", userValidation);
+        } catch (Exception e) {
+            response.put("Mensaje", "Usuario " + "'" + username  + "'" + " no existe");
+        }
+        return  new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+
     }
 
     private String getJWTToken(String username) {
