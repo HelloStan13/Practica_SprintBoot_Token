@@ -16,7 +16,7 @@ public class User {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId() {
         this.id = id;
     }
 

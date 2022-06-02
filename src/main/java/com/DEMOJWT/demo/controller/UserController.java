@@ -26,12 +26,13 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("user")
-    public User login(@RequestParam("user") String username, @RequestParam("password") String pwd) {
+    @PostMapping("userCreate")
+    public User userCreate(@RequestParam("user") String username, @RequestParam("password") String pwd) {
         User user = new User();
+        user.setId();
         user.setUser(username);
         user.setPwd(pwd);
-        return this.userService.saveUser(user);
+        return userService.saveUser(user);
     }
 
     @GetMapping("user")
