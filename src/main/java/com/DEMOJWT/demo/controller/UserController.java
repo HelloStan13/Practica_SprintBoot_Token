@@ -26,6 +26,7 @@ public class UserController {
         String token = getJWTToken(username);
         User user = new User();
         user.setUser(username);
+        user.setPwd(pwd);
         user.setToken(token);
         return this.userService.saveUser(user);
     }
